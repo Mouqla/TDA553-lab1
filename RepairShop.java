@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import org.junit.Test;
-
 public class RepairShop
 { 
     public double repairShopPosX = 0;

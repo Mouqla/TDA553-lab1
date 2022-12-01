@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Scania extends Car{
 
-    private static double platAngle;
+    private double platAngle;
     private final static double platMax = 70;
     private final static double platMin = 0;
     private final static double platAngleamount = 5;
