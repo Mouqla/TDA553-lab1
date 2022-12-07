@@ -54,8 +54,8 @@ public class RepairShop
     }
     public Double CheckDistance(Car carPos)
     {
-        double distanceBetweenObjects = Math.sqrt(Math.pow((this.repairShopPosX-carPos.x),2)
-                                                + Math.pow((this.repairShopPosY-carPos.y),2));
+        double distanceBetweenObjects = Math.sqrt(Math.pow((this.repairShopPosX-carPos.getX()),2)
+                                                + Math.pow((this.repairShopPosY-carPos.getY()),2));
         
         return distanceBetweenObjects;
     }

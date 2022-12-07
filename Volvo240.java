@@ -8,81 +8,49 @@ public class Volvo240 extends Car{
 
     private final static double trimFactor = 1.25;
 
-    private Volvo240() {
-        nrDoors = 4;
-        color = Color.black;
-        enginePower = 100;
-        modelName = "Volvo240";
+    public Volvo240(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
+        super(nrDoors, enginePower, topSpeed, color, modelName);
         stopEngine();
-    }
-
-    private double speedFactor() {
-        return enginePower * 0.01 * trimFactor;
-    }
-
-    private void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
-    }
-
-    private void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
-    }
-
-    public void gas(double amount) {
-        if (amount<=1 && amount >=0 ){
-            incrementSpeed(amount);
-        }
-        else
-        {
-            incrementSpeed(0);
-            System.out.print("Wrong value! Try between 0 and 1 ");
-        }
-    }
-        
-    public void brake(double amount) {
-        if (amount<=1 && amount >=0 ){
-            decrementSpeed(amount);
-        }
-        else
-        {   decrementSpeed(0);
-            System.out.print("Wrong value! Try between 0 and 1 ");}
+        setTurboValue(trimFactor);
     }
     
     @Test
     public void testMove() {
         startEngine();
         turnRight();
-        double exp = (x -= currentSpeed);
-        move(x, y);
-        assertEquals(x, exp, 0);
+        double currentX = getX();
+        double exp = (currentX -= getCurrentSpeed());
+        move(getX(), getY());
+        assertEquals(getX(), exp, 0);
         turnRight();
-        double nextExp = (y -= currentSpeed);
-        move(x, y);
-        assertEquals(y, nextExp, 0);
+        double currentY = getY();
+        double nextExp = (currentY -= getCurrentSpeed());
+        move(getX(), getY());
+        assertEquals(getY(), nextExp, 0);
     }
 
     @Test
     public void testGas() {
         double expectedIncrementSpeed = Math.max(getCurrentSpeed() + speedFactor() * 10.5, 0);
         gas(10.5);
-        assertEquals(currentSpeed, expectedIncrementSpeed, 0);
+        assertEquals(getCurrentSpeed(), expectedIncrementSpeed, 0);
         double expectedDecrementSpeed = Math.max(getCurrentSpeed() - speedFactor() * 10.5, 0);
         brake(10.5);
-        assertEquals(currentSpeed, expectedDecrementSpeed, 0);
+        assertEquals(getCurrentSpeed(), expectedDecrementSpeed, 0);
     }
 
     @Test
     public void testSpeed() {
         double expectedIncrementSpeed = Math.max(getCurrentSpeed() + speedFactor() * 10.5, 0);
         incrementSpeed(10.5);
-        assertEquals(currentSpeed, expectedIncrementSpeed, 0);
+        assertEquals(getCurrentSpeed(), expectedIncrementSpeed, 0);
         double expectedDecrementSpeed = Math.max(getCurrentSpeed() - speedFactor() * 10.5, 0);
         decrementSpeed(10.5);
-        assertEquals(currentSpeed, expectedDecrementSpeed, 0);
+        assertEquals(getCurrentSpeed(), expectedDecrementSpeed, 0);
     }
 
     @Test
     public void testSpeedFactor() {
-        assertEquals(speedFactor(), enginePower * 0.01 * trimFactor, 0);
+        assertEquals(speedFactor(), getEnginePower() * 0.01 * trimFactor, 0);
     }
 }

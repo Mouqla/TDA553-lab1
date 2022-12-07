@@ -6,14 +6,32 @@ import org.junit.jupiter.api.Test;
 
 public class Car implements Movable{
 
-    public int cardinal; // Determines direction of the car
-    public double x; // X value of the car
-    public double y; // Y value of the car
-    public int nrDoors; // Number of doors on the car
-    public double enginePower; // Engine power of the car
-    public double currentSpeed; // The current speed of the car
-    public Color color; // Color of the car
-    public String modelName; // The car model name
+    private int cardinal; // Determines direction of the car
+    private double x; // X value of the car
+    private double y; // Y value of the car
+    private int nrDoors; // Number of doors on the car
+    private double enginePower; // Engine power of the car
+    private double topSpeed; // The top speed of the car
+    private double currentSpeed; // The current speed of the car
+    private Color color; // Color of the car
+    private String modelName; // The car model name
+    private double turbo = 1; // Turbo value
+
+    public Car(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
+        this.nrDoors = nrDoors;
+        this.enginePower = enginePower;
+        this.topSpeed = topSpeed;
+        this.color = color;
+        this.modelName = modelName;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 
     public int getNrDoors() {
         return nrDoors;
@@ -21,6 +39,10 @@ public class Car implements Movable{
 
     public double getEnginePower() {
         return enginePower;
+    }
+
+    public double getTopSpeed() {
+        return topSpeed;
     }
 
     public double getCurrentSpeed() {
@@ -31,8 +53,16 @@ public class Car implements Movable{
         return color;
     }
 
+    public String getModelName() {
+        return modelName;
+    }
+
     public void setColor(Color clr) {
         color = clr;
+    }
+
+    public void setTurboValue(double turbo) {
+        this.turbo = turbo;
     }
 
     public void startEngine() {
@@ -41,6 +71,38 @@ public class Car implements Movable{
 
     public void stopEngine() {
         currentSpeed = 0;
+    }
+
+    public double speedFactor() {
+        return getEnginePower() * 0.01 * turbo;
+    }
+
+    public void incrementSpeed(double amount) {
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getTopSpeed());
+    }
+
+    public void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
+
+    public void gas(double amount) {
+        if (amount<=1 && amount >=0 ){
+            incrementSpeed(amount);
+        }
+        else
+        {
+            incrementSpeed(0);
+            System.out.print("Wrong value! Try between 0 and 1 ");
+        }
+    }
+        
+    public void brake(double amount) {
+        if (amount<=1 && amount >=0 ){
+            decrementSpeed(amount);
+        }
+        else
+        {   decrementSpeed(0);
+            System.out.print("Wrong value! Try between 0 and 1 ");}
     }
 
     @Override

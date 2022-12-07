@@ -7,18 +7,14 @@ public class Scania extends Car{
     private final static double platMin = 0;
     private final static double platAngleamount = 5;
 
-    private Scania() {
-        nrDoors = 2;
-        color = Color.black; 
-        enginePower = 75;
-        modelName = "Scania";
+    public Scania(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
+        super(nrDoors, enginePower, topSpeed, color, modelName);
         stopEngine();
     }
     
-    
     public void raise(){
         double currentValue = platAngle;
-        if (currentSpeed == 0 && platAngle < platMax){
+        if (getCurrentSpeed() == 0 && platAngle < platMax){
             currentValue += platAngleamount;
             if(currentValue > platMax){
                 platAngle = platMax;
@@ -28,28 +24,16 @@ public class Scania extends Car{
     }
     public void lower(){
         double currentValue = platAngle;
-        if (currentSpeed == 0 && platAngle > platMin ){
+        if (getCurrentSpeed() == 0 && platAngle > platMin ){
             currentValue -= platAngleamount;
             if(currentValue < platMin){
                 platAngle = platMin;
             
             } else platAngle = currentValue; 
         }
-
     }
-
-    private double speedFactor() {
-        return enginePower * 0.01;
-    }
-
-    private void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
-    }
-
-    private void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
-    }
-
+    
+    @Override
     public void gas(double amount) {
         if (amount <=1 && amount >=0 && platAngle == platMin ){
             incrementSpeed(amount);
@@ -60,14 +44,4 @@ public class Scania extends Car{
             System.out.print("Wrong value! Try between 0 and 1 ");
         }
     }
-        
-    public void brake(double amount) {
-        if (amount <=1 && amount >=0  ){
-            decrementSpeed(amount);
-        }
-        else
-        {   decrementSpeed(0);
-            System.out.print("Wrong value! Try between 0 and 1 ");}
-    }
-    
 }

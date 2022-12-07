@@ -9,11 +9,8 @@ public class Transporter extends Car{
     private int storageCapacity = 2;
     private double loadingDistance = 20;
 
-    private Transporter() {
-        nrDoors = 2;
-        color = Color.black; 
-        enginePower = 75;
-        modelName = "Transporter";
+    public Transporter(int nrDoors, double enginePower, double testSpeed, Color color, String modelName) {
+        super(nrDoors, enginePower, testSpeed, color, modelName);
         stopEngine();
     }
 
@@ -39,13 +36,13 @@ public class Transporter extends Car{
     }
 
     public Double CheckDistance(Car carPos) {
-        double distanceBetweenObjects = Math.sqrt(Math.pow((this.x-carPos.x),2)
-                                                + Math.pow((this.y-carPos.y),2));
+        double distanceBetweenObjects = Math.sqrt(Math.pow((this.getX()-carPos.getX()),2)
+                                                + Math.pow((this.getY()-carPos.getY()),2));
         return distanceBetweenObjects;
     }
     
     public void lowerRamp() {
-        if(currentSpeed == 0) {
+        if(getCurrentSpeed() == 0) {
             ramp = false;
         }
     }
@@ -54,18 +51,7 @@ public class Transporter extends Car{
         ramp = true;
     }
 
-    private double speedFactor() {
-        return enginePower * 0.01;
-    }
-
-    private void incrementSpeed(double amount) {
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
-    }
-
-    private void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
-    }
-
+    @Override
     public void gas(double amount) {
         if(amount <=1 && amount >=0 && ramp == true) {
             incrementSpeed(amount);
@@ -74,14 +60,4 @@ public class Transporter extends Car{
             System.out.print("Wrong value! Try between 0 and 1 ");
         }
     }
-        
-    public void brake(double amount) {
-        if(amount <=1 && amount >=0) {
-            decrementSpeed(amount);
-        } else {
-            decrementSpeed(0);
-            System.out.print("Wrong value! Try between 0 and 1 ");
-        }
-    }
-    
 }
