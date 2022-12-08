@@ -1,8 +1,8 @@
-import static org.junit.Assert.assertEquals;
+
 
 import java.awt.*;
 
-import org.junit.jupiter.api.Test;
+
 
 public class Car implements Movable{
 
@@ -133,48 +133,5 @@ public class Car implements Movable{
         cardinal += 90;
     }
 
-    @Test
-    public void testEngine() {
-        startEngine();
-        double expectedStartSpeed = 0.1;
-        assertEquals(currentSpeed, expectedStartSpeed, 0);
-        stopEngine();
-        double expectedStopSpeed = 0;
-        assertEquals(currentSpeed, expectedStopSpeed, 0);
-    }
-
-    @Test
-    public void testDoors() {
-        int expectedDoors = 5;
-        nrDoors = 5;
-        assertEquals(getNrDoors(), expectedDoors);
-    }
-
-    @Test
-    public void testPower() {
-        double expectedPower = 480.5;
-        enginePower = 480.5;
-        assertEquals(getEnginePower(), expectedPower, 0);
-    }
-
-    @Test
-    public void testSpeed() {
-        double expectedSpeed = 285.5;
-        currentSpeed = 285.5;
-        assertEquals(getCurrentSpeed(), expectedSpeed, 0);
-    }
-
-    @Test
-    public void testGetColor() {
-        Color expectedGetColor = Color.black;
-        color = Color.black;
-        assertEquals(getColor(), expectedGetColor);
-    }
-
-    @Test
-    public void testSetColor() {
-        Color expectedSetColor = Color.red;
-        setColor(Color.red);
-        assertEquals(color, expectedSetColor);
-    }
+   
 }
