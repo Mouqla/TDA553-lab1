@@ -1,8 +1,9 @@
 Explain how you chose the inheritance hierarchy in Task 1, making reference to the Open-Closed Principle.
 Saab and volvo are both cars so therefore we inherit from Cars. Since cars can move cars will inherit from Moveable which also makes saab and volvo able to inherit moveable.
+Using the principle of open-closed we have made changes to the code, making the code more coherent, easier to make changes to specific subclasses with the main methods from the superclass unchanged. We have more methods containing specific tasks or instructions to make it easier to make a easy to read and easy to follow script. Our goal is to have uniform code style, agreeing to use a certain syntax/style. 
 
 
 Explain how you implemented each of the sanity checks in Task 4.
 In our gas/brake methods we make an if statements that checks the amount the method gets called with. 
 If that amount is lower than 0 or higher than 1 we return with 0 and raise error. 
-Which makes the car not brake or not gas depending on which method you called for.
+We then call decrement/increment speed which in turn uses math.min/max to limit the currentspeed variable so that the currentspeed can't exceed a set max speed and can't be reduced lower than 0. Making the car unable to move backwards with brakes and exceed speed limits set.
