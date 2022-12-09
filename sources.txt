@@ -1,4 +1,8 @@
-/home/elias/Documents/chalmers/TDA553-lab1/Car.java
-/home/elias/Documents/chalmers/TDA553-lab1/Movable.java
-/home/elias/Documents/chalmers/TDA553-lab1/Saab95.java
-/home/elias/Documents/chalmers/TDA553-lab1/Volvo240.java
+PATH/TDA553-lab1/Car.java
+PATH/TDA553-lab1/Movable.java
+PATH/TDA553-lab1/Saab95.java
+PATH/TDA553-lab1/Volvo240.java
+PATH/TDA553-lab1/Scania.java
+PATH/TDA553-lab1/Transporter.java
+PATH/TDA553-lab1/RepairShop.java
+PATH/TDA553-lab1/CarMain.java

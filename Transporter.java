@@ -9,8 +9,8 @@ public class Transporter extends Car{
     private int storageCapacity = 2;
     private double loadingDistance = 20;
 
-    public Transporter(int nrDoors, double enginePower, double testSpeed, Color color, String modelName) {
-        super(nrDoors, enginePower, testSpeed, color, modelName);
+    public Transporter(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
+        super(nrDoors, enginePower, topSpeed, color, modelName);
         stopEngine();
     }
 

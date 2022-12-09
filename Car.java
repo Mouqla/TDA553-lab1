@@ -106,7 +106,7 @@ public class Car implements Movable{
     }
 
     @Override
-    public void move(double x, double y) {
+    public void move() {
         switch (cardinal % 360) {
             case 0:
                 y += currentSpeed;
