@@ -1,0 +1,5 @@
+1. Both scania and transporter extends car but the override the gas method to implement the specific conditions for scania and transporter.
+
+2. We have 2 instances of duplicate like code, the loading and unloading of the transporter and repair shop. But also lowering and raises of the ramps. But since we can't inherit from 2 classes we can't make 2 more classes that these 3 can inherit.
+
+3. We had to make minor changes but that was done after doing most of the code for lab2. We made the car class more general and the saab and volvo decrease the amount of methods as they could be found in both classes
