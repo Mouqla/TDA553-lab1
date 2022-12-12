@@ -4,7 +4,8 @@ import java.util.ArrayList;
 public class Transporter extends Car{
 
     // if ramp is false, the ramp is lowered
-    private boolean ramp = false;
+    // Loading loader; 
+    private boolean ramp = true;
     private ArrayList<Car> carsStorage = new ArrayList<Car>();
     private int storageCapacity = 2;
     private double loadingDistance = 20;
@@ -46,7 +47,7 @@ public class Transporter extends Car{
             ramp = false;
         }
     }
-
+    
     public void raiseRamp() {
         ramp = true;
     }
@@ -57,7 +58,7 @@ public class Transporter extends Car{
             incrementSpeed(amount);
         } else {
             incrementSpeed(0);
-            System.out.print("Wrong value! Try between 0 and 1 ");
+            System.out.print("Wrong value! Try between 0 and 1 or ramp is up ");
         }
     }
 }

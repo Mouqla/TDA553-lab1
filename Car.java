@@ -105,6 +105,7 @@ public class Car implements Movable{
             System.out.print("Wrong value! Try between 0 and 1 ");}
     }
 
+
     @Override
     public void move() {
         switch (cardinal % 360) {
