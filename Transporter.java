@@ -9,6 +9,7 @@ public class Transporter extends Car{
     private ArrayList<Car> carsStorage = new ArrayList<Car>();
     private int storageCapacity = 2;
     private double loadingDistance = 20;
+    private Loader loader;
 
     public Transporter(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
         super(nrDoors, enginePower, topSpeed, color, modelName);
@@ -16,41 +17,27 @@ public class Transporter extends Car{
     }
 
     public void LoadCar(Car carToLoadCar) {
-        if(CheckDistance(carToLoadCar) <= loadingDistance && ramp == false) {
             if(carsStorage.size() < storageCapacity) {
-                carsStorage.add(carToLoadCar);
+                loader.LoadCar(carToLoadCar, carsStorage, loadingDistance, this.getX(), this.getY());
                 System.out.print("Car Loaded");
-            } else System.out.print("The transporter is full of cars at the moment");
-        } else System.out.print("The transporter is not close enough at the moment");
+            } 
+            else System.out.print("The transporter is full of cars at the moment");
     }
 
     public void UnloadCar(Car carToUnload) {
         if(ramp == false) {
-            carsStorage.remove(carToUnload);
-        } else System.out.print("The transporter ramp is not down.");
+            loader.UnloadCar(carToUnload, carsStorage);
+        } 
+        else System.out.print("The transporter ramp is not down.");
     }
 
     public void UnloadCarIndex(int carToUnloadIndex) {
         if(ramp == false) {
-            carsStorage.remove(carToUnloadIndex);
-        } else System.out.print("The transporter ramp is not down.");
-    }
-
-    public Double CheckDistance(Car carPos) {
-        double distanceBetweenObjects = Math.sqrt(Math.pow((this.getX()-carPos.getX()),2)
-                                                + Math.pow((this.getY()-carPos.getY()),2));
-        return distanceBetweenObjects;
+            loader.UnloadCarIndex(carToUnloadIndex, carsStorage);
+        } 
+        else System.out.print("The transporter ramp is not down.");
     }
     
-    public void lowerRamp() {
-        if(getCurrentSpeed() == 0) {
-            ramp = false;
-        }
-    }
-    
-    public void raiseRamp() {
-        ramp = true;
-    }
 
     @Override
     public void gas(double amount) {
