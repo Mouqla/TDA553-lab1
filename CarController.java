@@ -31,10 +31,10 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240(4,200,250,Color.red,"VOlo 240 Double Turbo rs6 forged in hell"));
+        cc.cars.add(new Volvo240(4,200,250,Color.red,"Volvo 240 Double Turbo rs6 forged in hell"));
         cc.cars.add(new Saab95(4, 175, 250, Color.orange, "Saab 95 C63 AMG super"));
         cc.cars.add(new Scania(2, 400, 50, Color.PINK, "Leif's Scania A-Traktor Super Turbo Böttad"));
-        cc.cars.add(new Transporter(2,420, 100, Color.black, "Kodak's Transport Of Weed"));
+        cc.cars.add(new Transporter(2,420, 100, Color.black, "Kodak's Transporter Of Weed"));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -52,7 +52,17 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.drawPanel.moveit(x, y);
+                if (car instanceof Volvo240)  {
+                    frame.drawPanel.moveit(x, y, frame.drawPanel.volvoPoint);
+                } else if (car instanceof Saab95) {
+                    frame.drawPanel.moveit(x, y, frame.drawPanel.saabPoint);
+                } else if (car instanceof Scania) {
+                    frame.drawPanel.moveit(x, y, frame.drawPanel.scaniaPoint);
+                } else if (car instanceof Transporter) {
+                    frame.drawPanel.moveit(x, y, frame.drawPanel.transporterPoint);
+                } else {
+                    System.out.println("Not an accepted object type");
+                }
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
