@@ -10,29 +10,7 @@ public class Scania extends Car{
     public Scania(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
         super(nrDoors, enginePower, topSpeed, color, modelName);
         stopEngine();
-    }
-    
-    public void raise(){
-        double currentValue = platAngle;
-        if (getCurrentSpeed() == 0 && platAngle < platMax){
-            currentValue += platAngleamount;
-            if(currentValue > platMax){
-                platAngle = platMax;
-            
-            } else platAngle = currentValue;
-        }
-    }
-    public void lower(){
-        double currentValue = platAngle;
-        if (getCurrentSpeed() == 0 && platAngle > platMin ){
-            currentValue -= platAngleamount;
-            if(currentValue < platMin){
-                platAngle = platMin;
-            
-            } else platAngle = currentValue; 
-        }
-    }
-    
+    } 
     @Override
     public void gas(double amount) {
         if (amount <=1 && amount >=0 && platAngle == platMin ){
