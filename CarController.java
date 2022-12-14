@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -34,11 +37,19 @@ public class CarController {
         cc.cars.add(new Volvo240(4,200,250,Color.red,"Volvo 240 Double Turbo rs6 forged in hell"));
         cc.cars.add(new Saab95(4, 175, 250, Color.orange, "Saab 95 C63 AMG super"));
         cc.cars.add(new Scania(2, 400, 50, Color.PINK, "Leif's Scania A-Traktor Super Turbo Böttad"));
-        cc.cars.add(new Transporter(2,420, 100, Color.black, "Kodak's Transporter Of Weed"));
+        cc.cars.add(new Transporter(2,420, 100, Color.black, "Kodak's Transporter Of Grass Clippings"));
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
+        try {
+            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Volvo240.jpg")) , cc.cars.get(0).getUniqueID());
+            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Saab95.jpg")) , cc.cars.get(1).getUniqueID());
+            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cc.cars.get(2).getUniqueID());
+            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cc.cars.get(3).getUniqueID());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Start the timer
         cc.timer.start();
     }
@@ -52,17 +63,7 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                if (car instanceof Volvo240)  {
-                    frame.drawPanel.moveit(x, y, frame.drawPanel.volvoPoint);
-                } else if (car instanceof Saab95) {
-                    frame.drawPanel.moveit(x, y, frame.drawPanel.saabPoint);
-                } else if (car instanceof Scania) {
-                    frame.drawPanel.moveit(x, y, frame.drawPanel.scaniaPoint);
-                } else if (car instanceof Transporter) {
-                    frame.drawPanel.moveit(x, y, frame.drawPanel.transporterPoint);
-                } else {
-                    System.out.println("Not an accepted object type");
-                }
+                frame.drawPanel.moveit(x, y, car.getUniqueID());
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }

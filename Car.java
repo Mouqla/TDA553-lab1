@@ -1,6 +1,5 @@
-
-
 import java.awt.*;
+import java.util.UUID;
 
 
 
@@ -16,6 +15,7 @@ public class Car implements Movable{
     private Color color; // Color of the car
     private String modelName; // The car model name
     private double turbo = 1; // Turbo value
+    private String uniqueID;
 
     public Car(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
         this.nrDoors = nrDoors;
@@ -23,6 +23,7 @@ public class Car implements Movable{
         this.topSpeed = topSpeed;
         this.color = color;
         this.modelName = modelName;
+        this.uniqueID = UUID.randomUUID().toString();
     }
 
     public double getX() {
@@ -55,6 +56,10 @@ public class Car implements Movable{
 
     public String getModelName() {
         return modelName;
+    }
+
+    public String getUniqueID() {
+        return uniqueID;
     }
 
     public void setColor(Color clr) {

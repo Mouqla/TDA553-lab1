@@ -5,7 +5,7 @@ public class Transporter extends Car{
 
     // if ramp is false, the ramp is lowered
     // Loading loader; 
-    private boolean ramp = true;
+    private boolean ramp = false;
     private ArrayList<Car> carsStorage = new ArrayList<Car>();
     private int storageCapacity = 2;
     private double loadingDistance = 20;
