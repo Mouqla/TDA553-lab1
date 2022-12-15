@@ -1,0 +1,13 @@
+Lab3Reflection
+UML_diagram reflection:
+As we misentepreted what the task 1 determained was minor changed. we created a truck class for which the scania and transporter can inherit the ramp methods. 
+This to make the ramp button in the ui actually work. 
+We then also added the loader class so we don't have duplicate code in the repairShop and transporter.
+
+Design reflection:
+Class analasys with respect to SoC and SRP
+Each class focuses on the specific tasks for that class. The truck class has methods such as ramp control that the cars does not. But still wants to use the car specific methods such as gas/brake/getColor and more. This follows the principles of SoC and also SRP. Although you could argue that one should make seperate classes for lowering and raising the ramp. as well as doing so with methods from the car class. This can although create confusion and unnecessary confusion with loads of classes.
+We have implemented several changes to make the code more coherant and with regards to design principles like OCP and dependency inversion.
+
+Refractoring reflection:
+The creation of the truck class and also loader class could be done mostly independantly. but we did have to take turns editing the code in transporter as this overlapped both the major changes that we decided to do.
