@@ -1,10 +1,5 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
  * It initializes with being center on the screen and attaching it's controller in it's state.
@@ -17,15 +12,13 @@ public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;
 
-    // The controller member
-    private CarController carC;
-
     private DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
     private JPanel controlPanel = new JPanel();
 
     private JPanel gasPanel = new JPanel();
-    private JSpinner gasSpinner = new JSpinner();
+    private SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 100, 1);
+    private JSpinner gasSpinner = new JSpinner(spinnerModel);
     private int gasAmount = 25;
     private JLabel gasLabel = new JLabel("Amount of gas");
 
@@ -40,8 +33,7 @@ public class CarView extends JFrame{
     private JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename, CarController cc){
-        this.carC = cc;
+    public CarView(String framename){
         initComponents(framename);
     }
 
@@ -49,8 +41,27 @@ public class CarView extends JFrame{
         return drawPanel;
     }
 
+    public JButton getGasButton() {
+        return gasButton;
+    }
+
+    public JButton getBrakeButton() {
+        return brakeButton;
+    }
+
+    public JSpinner getGasSpinner() {
+        return gasSpinner;
+    }
+
+    public int getGasAmount() {
+        return gasAmount;
+    }
+
+    public void setGasAmount(int amount) {
+        gasAmount = amount;
+    }
+
     // Sets everything in place and fits everything
-    // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
 
         this.setTitle(title);
@@ -59,19 +70,8 @@ public class CarView extends JFrame{
 
         this.add(drawPanel);
 
-
-
-        SpinnerModel spinnerModel =
-                new SpinnerNumberModel(0, //initial value
-                        0, //min
-                        100, //max
-                        1);//step
-        gasSpinner = new JSpinner(spinnerModel);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner)e.getSource()).getValue();
-            }
-        });
+        
+        
 
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
@@ -102,28 +102,6 @@ public class CarView extends JFrame{
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
-
-        // This actionListener is for the gas button only
-        // TODO: Create more for each component as necessary
-        liftBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.brake(15);
-            }
-        });
-        gasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
-            }
-        });
-
-        brakeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.brake(15);
-            }
-        });
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
