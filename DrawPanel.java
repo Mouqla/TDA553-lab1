@@ -1,20 +1,21 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 
 // This panel represent the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel{
 
-    ArrayList<GraphicalCar> graphicalCars = new ArrayList<>();
+    private static List<GraphicalCar> graphicalCars = new ArrayList<GraphicalCar>();
 
     public void addGraphicalCar(BufferedImage carImage, String uniqueID) {
         graphicalCars.add(new GraphicalCar(carImage, uniqueID));
     }
 
-    void moveit(int x, int y, String uniqueID){
-        graphicalCars.stream().filter(graphicalCar -> graphicalCar.getUniqueID().equals(uniqueID)).forEach(graphicalCar -> graphicalCar.movePoints(x, y));
+    public List<GraphicalCar> getGraphicalCars() {
+        return graphicalCars;
     }
 
     // Initializes the panel and reads the images

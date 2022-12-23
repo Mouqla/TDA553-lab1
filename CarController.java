@@ -24,9 +24,9 @@ public class CarController {
     private Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
+    private CarView frame;
     // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
+    private ArrayList<Car> cars = new ArrayList<>();
 
     //methods:
 
@@ -43,10 +43,10 @@ public class CarController {
         cc.frame = new CarView("CarSim 1.0", cc);
 
         try {
-            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Volvo240.jpg")) , cc.cars.get(0).getUniqueID());
-            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Saab95.jpg")) , cc.cars.get(1).getUniqueID());
-            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cc.cars.get(2).getUniqueID());
-            cc.frame.drawPanel.addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cc.cars.get(3).getUniqueID());
+            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Volvo240.jpg")) , cc.cars.get(0).getUniqueID());
+            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Saab95.jpg")) , cc.cars.get(1).getUniqueID());
+            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cc.cars.get(2).getUniqueID());
+            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cc.cars.get(3).getUniqueID());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,9 +63,9 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getX());
                 int y = (int) Math.round(car.getY());
-                frame.drawPanel.moveit(x, y, car.getUniqueID());
+                frame.getDrawPanel().getGraphicalCars().stream().filter(graphicalCar -> graphicalCar.getUniqueID().equals(car.getUniqueID())).forEach(graphicalCar -> graphicalCar.movePoints(x, y));
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+                frame.getDrawPanel().repaint();
             }
         }
     }
