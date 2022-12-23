@@ -17,15 +17,21 @@ public class Car implements Movable{
     private double turbo = 1; // Turbo value
     private String uniqueID;
 
-    public Car(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
+    public Car(int nrDoors, double enginePower, double topSpeed, Color color, String modelName,double xPos, double yPos) {
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.topSpeed = topSpeed;
         this.color = color;
         this.modelName = modelName;
         this.uniqueID = UUID.randomUUID().toString();
+        this.x = xPos;
+        this.y = yPos;
     }
 
+    public double[] getPosition() {
+        double[] position = {x,y};
+        return position;
+    }
     public double getX() {
         return x;
     }
@@ -84,6 +90,7 @@ public class Car implements Movable{
 
     public void incrementSpeed(double amount) {
         currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getTopSpeed());
+        
     }
 
     public void decrementSpeed(double amount) {
@@ -91,12 +98,12 @@ public class Car implements Movable{
     }
 
     public void gas(double amount) {
-        if (amount<=1 && amount >=0 ){
-            incrementSpeed(amount);
+        if (amount<=1 && amount >=0 )
+        {
+                        incrementSpeed(amount);
         }
         else
         {
-            incrementSpeed(0);
             System.out.print("Wrong value! Try between 0 and 1 ");
         }
     }
@@ -106,13 +113,14 @@ public class Car implements Movable{
             decrementSpeed(amount);
         }
         else
-        {   decrementSpeed(0);
+        {  
             System.out.print("Wrong value! Try between 0 and 1 ");}
     }
 
 
     @Override
     public void move() {
+        
         switch (cardinal % 360) {
             case 0:
                 y += currentSpeed;

@@ -7,8 +7,8 @@ public class Scania extends Car{
     private final static double platMin = 0;
     private final static double platAngleamount = 5;
 
-    public Scania(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
-        super(nrDoors, enginePower, topSpeed, color, modelName);
+    public Scania(int nrDoors, double enginePower, double topSpeed, Color color, String modelName,double xPos,double yPos) {
+        super(nrDoors, enginePower, topSpeed, color, modelName,xPos,yPos);
         stopEngine();
     } 
     @Override

@@ -1,5 +1,11 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
  * It initializes with being center on the screen and attaching it's controller in it's state.
@@ -12,14 +18,14 @@ public class CarView extends JFrame implements Observer{
     private static final int X = 800;
     private static final int Y = 800;
 
-    private DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    private DrawPanel drawPanel;
 
     private JPanel controlPanel = new JPanel();
 
     private JPanel gasPanel = new JPanel();
     private SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 100, 1);
     private JSpinner gasSpinner = new JSpinner(spinnerModel);
-    private int gasAmount = 25;
+    private int gasAmount = 0;
     private JLabel gasLabel = new JLabel("Amount of gas");
 
     private JButton gasButton = new JButton("Gas");
@@ -31,10 +37,20 @@ public class CarView extends JFrame implements Observer{
 
     private JButton startButton = new JButton("Start all cars");
     private JButton stopButton = new JButton("Stop all cars");
-
+    
+    CarModel model;
+    CarController carcController;
+    double[] volvoPos;
+    double[] saabPos;
+    double[] scaniaPos;
+    double[] transporterPos;
     // Constructor
-    public CarView(String framename,CarController controller){
+    public CarView(String framename,CarController controller, CarModel model){
+        this.carcController = controller;
+        this.model = model;
+        this.drawPanel = new DrawPanel(true,800,500,model);
         initComponents(framename);
+        update();
     }
 
     public DrawPanel getDrawPanel() {
@@ -60,6 +76,9 @@ public class CarView extends JFrame implements Observer{
     public void setGasAmount(int amount) {
         gasAmount = amount;
     }
+    
+
+    
 
     // Sets everything in place and fits everything
     private void initComponents(String title) {
@@ -76,7 +95,12 @@ public class CarView extends JFrame implements Observer{
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
-
+        gasSpinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e)
+            {
+                gasAmount = (int) ((JSpinner)e.getSource()).getValue();
+            }
+        });
         this.add(gasPanel);
 
         controlPanel.setLayout(new GridLayout(2,4));
@@ -103,6 +127,24 @@ public class CarView extends JFrame implements Observer{
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
 
+
+
+        gasButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                carcController.gas(gasAmount);
+                
+            }
+        });
+        brakeButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                carcController.brake(15);
+                
+            }
+        });
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
@@ -119,6 +161,12 @@ public class CarView extends JFrame implements Observer{
     @Override
     public void update() {
         // TODO Auto-generated method stub
+        double[] volvoPos = model.cars.get(0).getPosition();
+        double[] saabPos = model.cars.get(1).getPosition();
+        double[] scaniaPos = model.cars.get(2).getPosition();
+        double[] transporterPos = model.cars.get(3).getPosition();
+        
+        drawPanel.repaint();
         
     }
 }

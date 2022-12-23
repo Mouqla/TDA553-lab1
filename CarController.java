@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,76 +15,30 @@ import javax.imageio.ImageIO;
  */
 
 public class CarController {
-    // member fields:
-
-    // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
-    // The timer is started with an listener (see below) that executes the statements
-    // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
-
-    // The frame that represents this instance View of the MVC pattern
-    private CarView frame;
-    // A list of cars, modify if needed
-    private static List<Car> cars = new ArrayList<Car>();
-
-    //methods:
-
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
-
-        cars.add(new Volvo240(4,200,250,Color.red,"Volvo 240 Double Turbo rs6 forged in hell"));
-        cars.add(new Saab95(4, 175, 250, Color.orange, "Saab 95 C63 AMG super"));
-        cars.add(new Scania(2, 400, 50, Color.PINK, "Leif's Scania A-Traktor Super Turbo Böttad"));
-        cars.add(new Transporter(2,420, 100, Color.black, "Kodak's Transporter Of Grass Clippings"));
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0");
-        cc.frame.getGasButton().addActionListener(e -> gas(cc.frame.getGasAmount()));
-        cc.frame.getBrakeButton().addActionListener(e -> brake(15));
-        cc.frame.getGasSpinner().addChangeListener(e -> cc.frame.setGasAmount((int) ((JSpinner)e.getSource()).getValue()));
-        try {
-            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Volvo240.jpg")) , cars.get(0).getUniqueID());
-            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Saab95.jpg")) , cars.get(1).getUniqueID());
-            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cars.get(2).getUniqueID());
-            cc.frame.getDrawPanel().addGraphicalCar(ImageIO.read(new File("Scania.jpg")) , cars.get(3).getUniqueID());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // Start the timer
-        cc.timer.start();
+    CarModel model;
+    
+    public CarController(CarModel model)
+    {
+        this.model = model;
     }
+    
+    final Timer timer = new Timer(50,new TimerListener());
 
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Car car : cars) {
-                car.move();
-                int x = (int) Math.round(car.getX());
-                int y = (int) Math.round(car.getY());
-                frame.getDrawPanel().getGraphicalCars().stream().filter(graphicalCar -> graphicalCar.getUniqueID().equals(car.getUniqueID())).forEach(graphicalCar -> graphicalCar.movePoints(x, y));
-                // repaint() calls the paintComponent method of the panel
-                frame.getDrawPanel().repaint();
-            }
+            
+            model.moveCars();
         }
+    }
+   
+    public void gas(int amount) {
+        double gas = ((double) amount) / 100;
+            model.carsGas(gas);
+    }
+    public void brake(int amount) {
+        double brake = ((double) amount) / 100;
+        model.carsBrake(brake);
     }
 
-    // Calls the gas method for each car once
-    static void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
-            car.gas(gas);
-        }
-    }
-    static void brake(int amount) {
-        double brake = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
-            car.brake(brake);
-        }
-    }
+   
 }

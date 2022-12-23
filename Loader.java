@@ -33,6 +33,7 @@ public class Loader
         }
         else return false;
     }
+    
     public Double CheckDistance(Car carPos,double loaderPosX,double loaderPosY)
     {
         return Math.sqrt(Math.pow((loaderPosX-carPos.getX()),2)

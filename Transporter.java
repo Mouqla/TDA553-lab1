@@ -5,14 +5,14 @@ public class Transporter extends Car{
 
     // if ramp is false, the ramp is lowered
     // Loading loader; 
-    private boolean ramp = false;
+    private boolean ramp = true;
     private ArrayList<Car> carsStorage = new ArrayList<Car>();
     private int storageCapacity = 2;
     private double loadingDistance = 20;
     private Loader loader;
 
-    public Transporter(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
-        super(nrDoors, enginePower, topSpeed, color, modelName);
+    public Transporter(int nrDoors, double enginePower, double topSpeed, Color color, String modelName,double xPos,double yPos) {
+        super(nrDoors, enginePower, topSpeed, color, modelName,xPos,yPos);
         stopEngine();
     }
 

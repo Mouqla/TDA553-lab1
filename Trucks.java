@@ -14,8 +14,8 @@ public class Trucks extends Car{
     private final static double platAngleamount = 5;
     private boolean ramp = true;
     
-    public Trucks(int nrDoors, double enginePower, double topSpeed, Color color, String modelName) {
-        super(nrDoors, enginePower, topSpeed, color, modelName);
+    public Trucks(int nrDoors, double enginePower, double topSpeed, Color color, String modelName,double xPos,double yPos) {
+        super(nrDoors, enginePower, topSpeed, color, modelName,xPos,yPos);
     }
     public void raise(){
         double currentValue = platAngle;
